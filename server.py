@@ -28,14 +28,13 @@ def cThread(c, addr):
     while True:
         try:
             msg = c.recv(1024)
+            if not msg: break
             for i in connections:
                 if i != c:
-                    connections.remove(i)
-                    return
-                i.send(msg)
+                    i.send(msg)
         except ConnectionResetError:
             connections.remove(c)
-            print(addr + " disconnected")
+            print(str(addr) + " disconnected")
             return
 
 while True:
