@@ -34,9 +34,10 @@ def exit_handler():
 
 
 msgThread = threading.Thread(target=sendMsg)
+msgThread.daemon = True
 msgThread.start()
 atexit.register(exit_handler)
 while True:
     rmsg = s.recv(1024)
-    if not rmsg:
-        print(rmsg.decode())
+    if not rmsg: break
+    print(rmsg.decode())
